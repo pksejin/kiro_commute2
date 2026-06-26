@@ -374,7 +374,14 @@ class AttendanceManager {
         }
 
         // 중복 체크 (자기 자신 제외)
-        if (this.companies.some(c => c.code === code && c.id !== id)) {
+        const duplicateCheck = this.companies.filter(c => c.code === code && c.id !== id);
+        console.log('=== 중복 체크 디버그 ===');
+        console.log('수정하려는 ID:', id);
+        console.log('입력한 코드:', code);
+        console.log('중복된 항목:', duplicateCheck);
+        console.log('전체 협력사:', this.companies.map(c => ({id: c.id, code: c.code})));
+        
+        if (duplicateCheck.length > 0) {
             alert('이미 존재하는 협력사 코드입니다.');
             return;
         }
