@@ -1,0 +1,737 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+}
+
+.current-time {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+}
+
+.mode-selector {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.mode-btn {
+    padding: 8px 20px;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.mode-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.mode-btn.active {
+    background: white;
+    color: #667eea;
+}
+
+main {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* 섹션 스타일 */
+.employee-section, .attendance-section, .break-section, .daily-log {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    background: #f8f9fa;
+}
+
+.employee-section h2, .attendance-section h2, .break-section h2, .daily-log h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+/* 직원 선택 */
+.employee-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#employeeSelect {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.add-employee-form {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#employeeName {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* 출퇴근 관리 */
+.attendance-status {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.status-display {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 10px;
+    background: #e9ecef;
+    color: #495057;
+}
+
+.status-display.checked-in {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-display.on-break {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.attendance-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 휴게시간 관리 */
+.break-section {
+    text-align: center;
+}
+
+.timer-display {
+    margin-bottom: 30px;
+}
+
+#timer {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #667eea;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.timer-controls {
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 24px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-secondary {
+    background: #ff9800;
+    color: white;
+}
+
+.btn-danger {
+    background: #f44336;
+    color: white;
+}
+
+.btn-info {
+    background: #2196F3;
+    color: white;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.preset-times, .custom-time {
+    margin-bottom: 20px;
+}
+
+.preset-times h3, .custom-time h3 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.preset-btn {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.custom-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#customMinutes {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    width: 100px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* 일일 기록 */
+.log-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.summary-item .label {
+    font-weight: bold;
+    color: #666;
+}
+
+.break-log {
+    margin-top: 20px;
+}
+
+.break-log h3 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.break-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.break-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.break-time {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.break-duration {
+    color: #666;
+}
+
+.total-time {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4CAF50;
+    padding: 15px;
+    background: #f0f8f0;
+    border-radius: 10px;
+}
+
+/* 반응형 개선 */
+@media (max-width: 768px) {
+    .employee-selector, .add-employee-form, .attendance-controls {
+        flex-direction: column;
+    }
+    
+    .log-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    #timer {
+        font-size: 3rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 관리자 모드 스타일 */
+.admin-nav {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+}
+
+.admin-tab {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.admin-tab:hover {
+    color: #667eea;
+    background: #f8f9fa;
+}
+
+.admin-tab.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+.admin-section {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+/* 폼 스타일 */
+.form-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-grid input, .form-grid select, .form-grid textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-grid textarea {
+    grid-column: 1 / -1;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* 필터 섹션 */
+.filter-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-section select, .filter-section input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+/* 테이블 스타일 */
+.data-table {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background: #667eea;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table tr:hover {
+    background: #f8f9fa;
+}
+
+.data-table .action-btn {
+    padding: 4px 8px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.action-btn.edit {
+    background: #ffc107;
+    color: white;
+}
+
+.action-btn.delete {
+    background: #dc3545;
+    color: white;
+}
+
+.action-btn.view {
+    background: #17a2b8;
+    color: white;
+}
+
+/* 리포트 요약 */
+.report-summary {
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.summary-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.summary-card h4 {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.summary-card span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* 반응형 개선 */
+@media (max-width: 768px) {
+    .mode-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .admin-nav {
+        flex-direction: column;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-actions {
+        justify-content: center;
+    }
+    
+    .data-table {
+        font-size: 0.8rem;
+    }
+    
+    .data-table th, .data-table td {
+        padding: 8px 4px;
+    }
+}
+
+
+/* Google Drive 동기화 스타일 */
+.sync-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.sync-status.connected {
+    background: #d4edda;
+    color: #155724;
+}
+
+.sync-status.disconnected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.sync-btn {
+    background: #4285f4 !important;
+    color: white !important;
+}
+
+.sync-btn.signed-in {
+    background: #34a853 !important;
+}
+
+.sync-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* 위치 정보 스타일 */
+.location-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f0f8ff;
+    border-radius: 10px;
+    border-left: 4px solid #4285f4;
+}
+
+.location-section h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.location-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.location-status {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.location-status.checking {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.location-status.valid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.location-status.invalid {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.location-status.unavailable {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.distance-info {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    color: #666;
+}
+
+
+/* PWA 관련 스타일 */
+.pwa-install-button {
+    padding: 8px 16px;
+    border: 2px solid white;
+    background: #34a853;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.pwa-install-button:hover {
+    background: #2d8e47;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Standalone 모드 (설치된 앱) */
+.pwa-standalone .current-time {
+    margin-top: 10px;
+}
+
+/* 오프라인 표시 */
+body.offline::before {
+    content: '⚠️ 오프라인 모드';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ff9800;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    z-index: 10000;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    .pwa-install-button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    
+    .mode-selector {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .mode-btn {
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
+
+/* iOS Safe Area 지원 */
+@supports (padding: max(0px)) {
+    body {
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+}
+
+/* 터치 피드백 */
+@media (hover: none) {
+    .btn:active,
+    .mode-btn:active,
+    .preset-btn:active {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+}
