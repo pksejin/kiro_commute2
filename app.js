@@ -406,6 +406,8 @@ class AttendanceManager {
 
         localStorage.setItem('companies', JSON.stringify(this.companies));
         
+        alert('✅ 수정이 완료되었습니다.');
+        
         this.hideAddCompanyForm();
         this.loadCompanyTable();
         this.updateCompanySelectors();
