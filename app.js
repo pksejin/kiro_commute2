@@ -1014,6 +1014,16 @@ class AttendanceManager {
         document.getElementById('startBreakBtn').disabled = !hasEmployee || !isCheckedIn || isOnBreak;
         document.getElementById('endBreakBtn').disabled = !hasEmployee || !isOnBreak;
 
+        // 위치 정보 표시/숨김
+        const locationInfo = document.getElementById('locationInfo');
+        if (locationInfo) {
+            if (!hasEmployee) {
+                locationInfo.style.display = 'none';
+            } else {
+                locationInfo.style.display = 'block';
+            }
+        }
+
         // 상태 표시
         const statusDisplay = document.getElementById('attendanceStatus').querySelector('.status-display');
         if (!hasEmployee) {
