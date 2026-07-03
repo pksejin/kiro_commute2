@@ -127,15 +127,19 @@
                 <div id="companyManagement" class="admin-section">
                     <div class="section-header">
                         <h2>협력사 관리</h2>
-                        <button id="addCompanyBtn" class="btn btn-primary">협력사 추가</button>
+                        <button id="addCompanyBtn" class="btn btn-primary">➕ 협력사 추가</button>
                     </div>
 
-                    <div id="addCompanyForm" class="form-section" style="display: none;">
-                        <h3>협력사 등록</h3>
+                    <!-- 협력사 신규 추가 폼 -->
+                    <div id="addCompanyForm" class="form-section form-section-add" style="display: none;">
+                        <div class="form-section-title">
+                            <span class="form-badge form-badge-add">신규 등록</span>
+                            <h3>협력사 등록</h3>
+                        </div>
                         <div class="form-grid">
-                            <input type="text" id="companyName" placeholder="협력사명" required>
-                            <input type="text" id="companyCode" placeholder="협력사 코드" required>
-                            <input type="text" id="companyContact" placeholder="담당자 연락처">
+                            <input type="text" id="companyName" placeholder="협력사명 *" required>
+                            <input type="text" id="companyCode" placeholder="협력사 코드 *" required>
+                            <input type="text" id="companyContact" placeholder="담당자 이름">
                             <input type="email" id="companyEmail" placeholder="이메일">
                             <textarea id="companyAddress" placeholder="주소" rows="2"></textarea>
                         </div>
@@ -152,8 +156,39 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button id="saveCompanyBtn" class="btn btn-primary">저장</button>
+                            <button id="saveCompanyBtn" class="btn btn-primary">💾 저장</button>
                             <button id="cancelCompanyBtn" class="btn btn-secondary">취소</button>
+                        </div>
+                    </div>
+
+                    <!-- 협력사 수정 폼 -->
+                    <div id="editCompanyForm" class="form-section form-section-edit" style="display: none;">
+                        <div class="form-section-title">
+                            <span class="form-badge form-badge-edit">수정 중</span>
+                            <h3 id="editCompanyFormTitle">협력사 수정</h3>
+                        </div>
+                        <div class="form-grid">
+                            <input type="text" id="editCompanyName" placeholder="협력사명 *" required>
+                            <input type="text" id="editCompanyCode" placeholder="협력사 코드 *" required>
+                            <input type="text" id="editCompanyContact" placeholder="담당자 이름">
+                            <input type="email" id="editCompanyEmail" placeholder="이메일">
+                            <textarea id="editCompanyAddress" placeholder="주소" rows="2"></textarea>
+                        </div>
+                        <div class="location-section">
+                            <h4>📍 사무실 위치 설정</h4>
+                            <div class="form-grid">
+                                <input type="number" step="any" id="editCompanyLatitude" placeholder="위도 (예: 37.5665)">
+                                <input type="number" step="any" id="editCompanyLongitude" placeholder="경도 (예: 126.9780)">
+                                <button type="button" id="editGetLocationBtn" class="btn btn-info">현재 위치 가져오기</button>
+                                <button type="button" id="editGeocodeBtn" class="btn btn-info">주소로 좌표 찾기</button>
+                            </div>
+                            <div class="alert alert-info" style="margin-top: 10px;">
+                                💡 직원들은 이 위치에서 80m 이내에서만 출퇴근이 가능합니다.
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button id="updateCompanyBtn" class="btn btn-warning">✏️ 수정 완료</button>
+                            <button id="cancelEditCompanyBtn" class="btn btn-secondary">취소</button>
                         </div>
                     </div>
 
