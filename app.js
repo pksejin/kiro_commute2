@@ -158,16 +158,20 @@ class AttendanceManager {
         });
 
         // 사용자 관리
-        document.getElementById('addUserBtn').addEventListener('click', () => {
-            this.showAddUserForm();
-        });
-
         document.getElementById('saveUserBtn').addEventListener('click', () => {
             this.saveUser();
         });
 
         document.getElementById('cancelUserBtn').addEventListener('click', () => {
-            this.hideAddUserForm();
+            this.clearUserForm(); // 내용만 초기화
+        });
+
+        document.getElementById('updateUserBtn').addEventListener('click', () => {
+            if (this._editingUserId) this.updateUser(this._editingUserId);
+        });
+
+        document.getElementById('cancelEditUserBtn').addEventListener('click', () => {
+            this.hideEditUserForm();
         });
 
         // 필터 이벤트
@@ -223,6 +227,8 @@ class AttendanceManager {
         } else if (tab === 'userManagement') {
             this.loadUserTable();
             this.updateCompanyFilters();
+            this.updateUserCompanySelector(); // 추가 폼 협력사 드롭다운 갱신
+            this.hideEditUserForm();          // 수정 폼 초기화
         } else if (tab === 'attendanceReport') {
             this.updateReportFilters();
         }
@@ -485,13 +491,27 @@ class AttendanceManager {
 
     showAddUserForm() {
         this.updateUserCompanySelector();
-        document.getElementById('addUserForm').style.display = 'block';
+        // 추가 폼은 항상 열려있으므로 수정 폼만 닫기
+        document.getElementById('editUserForm').style.display = 'none';
         document.getElementById('userName').focus();
     }
 
     hideAddUserForm() {
-        document.getElementById('addUserForm').style.display = 'none';
+        // 추가 폼은 숨기지 않고 내용만 초기화
         this.clearUserForm();
+    }
+
+    showEditUserForm(id) {
+        this._editingUserId = id;
+        this.updateEditUserCompanySelector();
+        document.getElementById('editUserForm').style.display = 'block';
+        document.getElementById('editUserForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    hideEditUserForm() {
+        document.getElementById('editUserForm').style.display = 'none';
+        this._editingUserId = null;
+        this.clearEditUserForm();
     }
 
     clearUserForm() {
@@ -503,10 +523,30 @@ class AttendanceManager {
         document.getElementById('userEmail').value = '';
     }
 
+    clearEditUserForm() {
+        document.getElementById('editUserCompany').value = '';
+        document.getElementById('editUserName').value = '';
+        document.getElementById('editUserEmployeeId').value = '';
+        document.getElementById('editUserPosition').value = '';
+        document.getElementById('editUserPhone').value = '';
+        document.getElementById('editUserEmail').value = '';
+        document.getElementById('editUserFormTitle').textContent = '사용자 수정';
+    }
+
     updateUserCompanySelector() {
         const select = document.getElementById('userCompany');
-        select.innerHTML = '<option value="">협력사 선택</option>';
-        
+        select.innerHTML = '<option value="">협력사 선택 *</option>';
+        this.companies.forEach(company => {
+            const option = document.createElement('option');
+            option.value = company.id;
+            option.textContent = company.name;
+            select.appendChild(option);
+        });
+    }
+
+    updateEditUserCompanySelector() {
+        const select = document.getElementById('editUserCompany');
+        select.innerHTML = '<option value="">협력사 선택 *</option>';
         this.companies.forEach(company => {
             const option = document.createElement('option');
             option.value = company.id;
@@ -552,9 +592,10 @@ class AttendanceManager {
         this.employees.push(employee);
         localStorage.setItem('employees', JSON.stringify(this.employees));
         
-        this.hideAddUserForm();
+        this.clearUserForm(); // 폼 내용만 초기화
         this.loadUserTable();
-        this.loadEmployees(); // 사용자 모드 드롭다운 업데이트
+        this.loadEmployees();
+        alert('✅ 사용자가 등록되었습니다.');
     }
 
     loadUserTable() {
@@ -614,39 +655,48 @@ class AttendanceManager {
     updateCompanySelectors() {
         this.updateCompanyFilters();
         this.updateUserCompanySelector();
+        this.updateEditUserCompanySelector();
     }
 
     editUser(id) {
         const user = this.users.find(u => u.id === id);
         if (!user) return;
 
-        this.updateUserCompanySelector();
-        document.getElementById('userCompany').value = user.companyId;
-        document.getElementById('userName').value = user.name;
-        document.getElementById('userEmployeeId').value = user.employeeId || '';
-        document.getElementById('userPosition').value = user.position || '';
-        document.getElementById('userPhone').value = user.phone || '';
-        document.getElementById('userEmail').value = user.email || '';
-        
-        this.showAddUserForm();
-        
-        document.getElementById('saveUserBtn').textContent = '수정';
-        document.getElementById('saveUserBtn').onclick = () => this.updateUser(id);
+        // 수정 폼에 데이터 채우기
+        this.showEditUserForm(id);
+
+        document.getElementById('editUserCompany').value = user.companyId;
+        document.getElementById('editUserName').value = user.name;
+        document.getElementById('editUserEmployeeId').value = user.employeeId || '';
+        document.getElementById('editUserPosition').value = user.position || '';
+        document.getElementById('editUserPhone').value = user.phone || '';
+        document.getElementById('editUserEmail').value = user.email || '';
+
+        // 제목에 사용자명 표시
+        document.getElementById('editUserFormTitle').textContent = `"${user.name}" 수정`;
     }
 
     updateUser(id) {
         const user = this.users.find(u => u.id === id);
         if (!user) return;
 
-        user.companyId = document.getElementById('userCompany').value;
-        user.name = document.getElementById('userName').value.trim();
-        user.employeeId = document.getElementById('userEmployeeId').value.trim();
-        user.position = document.getElementById('userPosition').value.trim();
-        user.phone = document.getElementById('userPhone').value.trim();
-        user.email = document.getElementById('userEmail').value.trim();
+        const companyId = document.getElementById('editUserCompany').value;
+        const name = document.getElementById('editUserName').value.trim();
+
+        if (!companyId || !name) {
+            alert('협력사와 사용자명은 필수입니다.');
+            return;
+        }
+
+        user.companyId = companyId;
+        user.name = name;
+        user.employeeId = document.getElementById('editUserEmployeeId').value.trim();
+        user.position = document.getElementById('editUserPosition').value.trim();
+        user.phone = document.getElementById('editUserPhone').value.trim();
+        user.email = document.getElementById('editUserEmail').value.trim();
 
         localStorage.setItem('users', JSON.stringify(this.users));
-        
+
         // employees 배열도 업데이트
         const employee = this.employees.find(e => e.id === id);
         if (employee) {
@@ -654,13 +704,11 @@ class AttendanceManager {
             employee.companyId = user.companyId;
             localStorage.setItem('employees', JSON.stringify(this.employees));
         }
-        
-        this.hideAddUserForm();
+
+        alert('✅ 수정이 완료되었습니다.');
+        this.hideEditUserForm();
         this.loadUserTable();
         this.loadEmployees();
-        
-        document.getElementById('saveUserBtn').textContent = '저장';
-        document.getElementById('saveUserBtn').onclick = () => this.saveUser();
     }
 
     deleteUser(id) {
