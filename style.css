@@ -602,50 +602,53 @@ main {
 
     /* 컨테이너 */
     .container {
-        padding: 10px;
+        padding: 8px;
     }
 
-    /* 헤더 */
+    /* 헤더 - 컴팩트하게 */
     header {
-        margin-bottom: 16px;
+        margin-bottom: 10px;
+        padding: 4px 0;
     }
 
     header h1 {
-        font-size: 1.5rem;
-        margin-bottom: 6px;
+        font-size: 1.25rem;
+        margin-bottom: 5px;
     }
 
     .current-time {
-        font-size: 0.95rem;
-        margin-bottom: 10px;
-    }
-
-    .sync-status {
-        font-size: 0.8rem;
-        padding: 4px 10px;
+        font-size: 0.85rem;
         margin-bottom: 8px;
     }
 
-    /* 모드 버튼 */
+    .sync-status {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+        margin-bottom: 6px;
+    }
+
+    /* 모드 버튼 - 한 줄에 모두 */
     .mode-selector {
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-wrap: nowrap;
+        gap: 5px;
         justify-content: center;
     }
 
     .mode-btn {
-        font-size: 0.85rem;
-        padding: 8px 16px;
+        font-size: 0.75rem;
+        padding: 7px 8px;
         flex: 1;
-        min-width: 120px;
-        max-width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
     }
 
     /* 메인 카드 */
     main {
-        padding: 16px;
-        border-radius: 14px;
+        padding: 12px;
+        border-radius: 12px;
     }
 
     /* 섹션 */
@@ -653,78 +656,84 @@ main {
     .attendance-section,
     .break-section,
     .daily-log {
-        padding: 14px;
-        margin-bottom: 16px;
-        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 10px;
     }
 
     .employee-section h2,
     .attendance-section h2,
     .break-section h2,
     .daily-log h2 {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
+        font-size: 1rem;
+        margin-bottom: 10px;
     }
 
     /* 직원 선택 */
     .employee-selector {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
 
     #employeeSelect {
         width: 100%;
-        font-size: 1rem;
-        padding: 12px;
+        font-size: 0.95rem;
+        padding: 11px;
+    }
+
+    /* 직원 추가 버튼 */
+    #addEmployeeBtn {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
     }
 
     /* 출퇴근 버튼 */
     .attendance-controls {
         display: flex;
-        gap: 10px;
+        gap: 8px;
     }
 
     .attendance-controls .btn {
         flex: 1;
-        padding: 14px;
-        font-size: 1.05rem;
-        border-radius: 12px;
+        padding: 13px 8px;
+        font-size: 1rem;
+        border-radius: 10px;
     }
 
-    /* 휴게시간 타이머 */
+    /* 타이머 */
     .timer-display {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin: 8px 0;
     }
 
     .timer-controls {
         display: flex;
-        gap: 10px;
+        gap: 8px;
     }
 
     .timer-controls .btn {
         flex: 1;
-        padding: 12px;
-        font-size: 0.95rem;
+        padding: 11px 8px;
+        font-size: 0.9rem;
     }
 
     /* 빠른 설정 버튼 */
-    .preset-times {
-        margin-top: 12px;
+    .preset-times h3 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
     }
 
     .preset-btn {
-        padding: 10px 16px;
-        font-size: 0.95rem;
-        margin: 4px;
+        padding: 9px 14px;
+        font-size: 0.9rem;
+        margin: 3px;
     }
 
-    /* 기록 요약 */
+    /* 오늘의 기록 */
     .log-summary .summary-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        padding: 7px 0;
     }
 
     /* 관리자 탭 */
@@ -734,139 +743,154 @@ main {
         overflow-x: auto;
         gap: 0;
         border-bottom: 2px solid #eee;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .admin-tab {
         flex: 1;
-        min-width: 80px;
-        padding: 10px 8px;
-        font-size: 0.8rem;
+        min-width: 70px;
+        padding: 9px 6px;
+        font-size: 0.78rem;
         white-space: nowrap;
         border-radius: 0;
-        border-bottom: 3px solid transparent;
-    }
-
-    .admin-tab.active {
-        border-bottom-color: #667eea;
     }
 
     /* 섹션 헤더 */
     .section-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         align-items: flex-start;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .section-header h2 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     /* 폼 */
     .form-section {
-        padding: 14px;
+        padding: 12px;
         border-radius: 10px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .form-section-title {
-        margin-bottom: 12px;
-        gap: 8px;
+        margin-bottom: 10px;
+        gap: 7px;
     }
 
     .form-section-title h3 {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .form-badge {
+        font-size: 0.72rem;
+        padding: 3px 9px;
     }
 
     .form-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 8px;
+        margin-bottom: 12px;
     }
 
     .form-grid input,
     .form-grid select,
     .form-grid textarea {
-        padding: 12px;
-        font-size: 1rem;
+        padding: 11px;
+        font-size: 0.95rem;
     }
 
     .form-actions {
         justify-content: stretch;
-        gap: 10px;
+        gap: 8px;
     }
 
     .form-actions .btn {
         flex: 1;
-        padding: 13px;
-        font-size: 0.95rem;
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+
+    /* 위치 섹션 */
+    .location-section {
+        padding: 10px;
+        margin: 12px 0;
+    }
+
+    .location-section h4 {
+        font-size: 0.9rem;
     }
 
     /* 필터 */
     .filter-section {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
+        gap: 7px;
         padding: 10px;
     }
 
     .filter-section select,
     .filter-section input {
         width: 100%;
-        padding: 10px 12px;
-        font-size: 0.95rem;
+        padding: 10px 11px;
+        font-size: 0.9rem;
     }
 
     .filter-section .btn {
         width: 100%;
-        padding: 12px;
+        padding: 11px;
+        font-size: 0.9rem;
     }
 
-    /* 테이블 - 카드형으로 변환 */
+    /* 테이블 */
     .data-table {
-        font-size: 0.85rem;
+        font-size: 0.78rem;
     }
 
     .data-table th,
     .data-table td {
-        padding: 10px 8px;
+        padding: 9px 6px;
     }
 
-    /* 위치 정보 */
-    .location-info {
-        margin-bottom: 12px;
-    }
-
+    /* 위치 상태 */
     .location-status {
-        font-size: 0.9rem;
-        padding: 10px 16px;
+        font-size: 0.85rem;
+        padding: 9px 14px;
         width: 100%;
         text-align: center;
+        display: block;
     }
 
     /* 리포트 카드 */
     .summary-cards {
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 8px;
     }
 
     .summary-card {
-        padding: 14px 10px;
+        padding: 12px 8px;
     }
 
     .summary-card h4 {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .summary-card span {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     /* 액션 버튼 */
     .action-btn {
-        padding: 7px 12px;
-        font-size: 0.85rem;
-        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        border-radius: 5px;
+    }
+
+    /* btn 공통 */
+    .btn {
+        font-size: 0.9rem;
     }
 }
 
