@@ -122,16 +122,12 @@ class AttendanceManager {
         });
 
         // 협력사 관리
-        document.getElementById('addCompanyBtn').addEventListener('click', () => {
-            this.showAddCompanyForm();
-        });
-
         document.getElementById('saveCompanyBtn').addEventListener('click', () => {
             this.saveCompany();
         });
 
         document.getElementById('cancelCompanyBtn').addEventListener('click', () => {
-            this.hideAddCompanyForm();
+            this.clearCompanyForm(); // 폼 숨기지 않고 내용만 초기화
         });
 
         // 수정 폼 버튼
@@ -253,20 +249,17 @@ class AttendanceManager {
     }
 
     showAddCompanyForm() {
-        // 수정 폼은 닫기
+        // 추가 폼은 항상 열려있으므로 수정 폼만 닫기
         document.getElementById('editCompanyForm').style.display = 'none';
-        document.getElementById('addCompanyForm').style.display = 'block';
         document.getElementById('companyName').focus();
     }
 
     hideAddCompanyForm() {
-        document.getElementById('addCompanyForm').style.display = 'none';
+        // 추가 폼은 숨기지 않고 내용만 초기화
         this.clearCompanyForm();
     }
 
     showEditCompanyForm(id) {
-        // 추가 폼은 닫기
-        document.getElementById('addCompanyForm').style.display = 'none';
         this._editingCompanyId = id;
         document.getElementById('editCompanyForm').style.display = 'block';
         // 수정 폼으로 스크롤
@@ -352,9 +345,10 @@ class AttendanceManager {
         this.companies.push(company);
         localStorage.setItem('companies', JSON.stringify(this.companies));
         
-        this.hideAddCompanyForm();
+        this.clearCompanyForm(); // 폼 내용만 초기화, 닫지 않음
         this.loadCompanyTable();
         this.updateCompanySelectors();
+        alert('✅ 협력사가 등록되었습니다.');
     }
 
     loadCompanyTable() {
