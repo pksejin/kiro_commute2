@@ -370,10 +370,10 @@ class AttendanceManager {
             row.innerHTML = `
                 <td>${company.name}</td>
                 <td>${company.code}</td>
-                <td>${company.contact || '-'}</td>
-                <td>${company.phone || '-'}</td>
+                <td class="hide-mobile">${company.contact || '-'}</td>
+                <td class="hide-mobile">${company.phone || '-'}</td>
                 <td>${locationInfo}</td>
-                <td>${new Date(company.createdAt).toLocaleDateString('ko-KR')}</td>
+                <td class="hide-mobile">${new Date(company.createdAt).toLocaleDateString('ko-KR')}</td>
                 <td>
                     <button class="action-btn edit" onclick="attendanceManager.editCompany('${company.id}')">수정</button>
                     <button class="action-btn delete" onclick="attendanceManager.deleteCompany('${company.id}')">삭제</button>
@@ -610,10 +610,10 @@ class AttendanceManager {
             row.innerHTML = `
                 <td>${company ? company.name : '알 수 없음'}</td>
                 <td>${user.name}</td>
-                <td>${user.employeeId || '-'}</td>
+                <td class="hide-mobile">${user.employeeId || '-'}</td>
                 <td>${user.position || '-'}</td>
-                <td>${user.phone || '-'}</td>
-                <td>${new Date(user.createdAt).toLocaleDateString('ko-KR')}</td>
+                <td class="hide-mobile">${user.phone || '-'}</td>
+                <td class="hide-mobile">${new Date(user.createdAt).toLocaleDateString('ko-KR')}</td>
                 <td>
                     <button class="action-btn edit" onclick="attendanceManager.editUser('${user.id}')">수정</button>
                     <button class="action-btn delete" onclick="attendanceManager.deleteUser('${user.id}')">삭제</button>
