@@ -90,11 +90,13 @@ class AttendanceManager {
         });
 
         // 프리셋 시간 버튼
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const minutes = parseInt(e.target.dataset.minutes);
+        // 빠른 설정 콤보박스
+        document.getElementById('presetSelect').addEventListener('change', (e) => {
+            const minutes = parseInt(e.target.value);
+            if (minutes) {
                 this.setBreakTimer(minutes);
-            });
+                e.target.value = ''; // 선택 후 초기화
+            }
         });
 
         // 모드 전환

@@ -732,7 +732,7 @@ main {
         white-space: nowrap;
     }
 
-    /* 빠른 설정 버튼 - 4개 한 줄 강제 */
+    /* 빠른 설정 - 콤보박스 */
     .preset-times {
         margin-top: 8px;
     }
@@ -743,20 +743,16 @@ main {
         text-align: center;
     }
 
-    .preset-btn-group {
-        display: flex;
-        gap: 6px;
-        justify-content: center;
-    }
-
-    .preset-btn {
-        flex: 1;
-        max-width: 80px;
-        padding: 10px 8px;
-        font-size: 0.85rem;
-        margin: 0;
-        border-radius: 14px;
-        white-space: nowrap;
+    .preset-select {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 1rem;
+        border: 2px solid #667eea;
+        border-radius: 12px;
+        background: white;
+        color: #333;
+        cursor: pointer;
+        appearance: auto;
     }
 
     /* 오늘의 기록 */
