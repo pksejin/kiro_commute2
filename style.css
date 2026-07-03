@@ -599,36 +599,274 @@ main {
 
 /* 반응형 개선 */
 @media (max-width: 768px) {
+
+    /* 컨테이너 */
+    .container {
+        padding: 10px;
+    }
+
+    /* 헤더 */
+    header {
+        margin-bottom: 16px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+
+    .current-time {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .sync-status {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+        margin-bottom: 8px;
+    }
+
+    /* 모드 버튼 */
     .mode-selector {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
     }
-    
+
+    .mode-btn {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        flex: 1;
+        min-width: 120px;
+        max-width: 180px;
+    }
+
+    /* 메인 카드 */
+    main {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    /* 섹션 */
+    .employee-section,
+    .attendance-section,
+    .break-section,
+    .daily-log {
+        padding: 14px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+    }
+
+    .employee-section h2,
+    .attendance-section h2,
+    .break-section h2,
+    .daily-log h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    /* 직원 선택 */
+    .employee-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #employeeSelect {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    /* 출퇴근 버튼 */
+    .attendance-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .attendance-controls .btn {
+        flex: 1;
+        padding: 14px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+    }
+
+    /* 휴게시간 타이머 */
+    .timer-display {
+        font-size: 2.5rem;
+    }
+
+    .timer-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .timer-controls .btn {
+        flex: 1;
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    /* 빠른 설정 버튼 */
+    .preset-times {
+        margin-top: 12px;
+    }
+
+    .preset-btn {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        margin: 4px;
+    }
+
+    /* 기록 요약 */
+    .log-summary .summary-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
+    }
+
+    /* 관리자 탭 */
     .admin-nav {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0;
+        border-bottom: 2px solid #eee;
+        margin-bottom: 16px;
     }
-    
+
+    .admin-tab {
+        flex: 1;
+        min-width: 80px;
+        padding: 10px 8px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        border-radius: 0;
+        border-bottom: 3px solid transparent;
+    }
+
+    .admin-tab.active {
+        border-bottom-color: #667eea;
+    }
+
+    /* 섹션 헤더 */
     .section-header {
         flex-direction: column;
         gap: 10px;
         align-items: flex-start;
+        margin-bottom: 14px;
     }
-    
+
+    .section-header h2 {
+        font-size: 1.1rem;
+    }
+
+    /* 폼 */
+    .form-section {
+        padding: 14px;
+        border-radius: 10px;
+        margin-bottom: 14px;
+    }
+
+    .form-section-title {
+        margin-bottom: 12px;
+        gap: 8px;
+    }
+
+    .form-section-title h3 {
+        font-size: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .form-grid input,
+    .form-grid select,
+    .form-grid textarea {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+        gap: 10px;
+    }
+
+    .form-actions .btn {
+        flex: 1;
+        padding: 13px;
+        font-size: 0.95rem;
+    }
+
+    /* 필터 */
     .filter-section {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
+        padding: 10px;
     }
-    
-    .form-actions {
-        justify-content: center;
+
+    .filter-section select,
+    .filter-section input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.95rem;
     }
-    
+
+    .filter-section .btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* 테이블 - 카드형으로 변환 */
     .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 8px;
+    }
+
+    /* 위치 정보 */
+    .location-info {
+        margin-bottom: 12px;
+    }
+
+    .location-status {
+        font-size: 0.9rem;
+        padding: 10px 16px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 리포트 카드 */
+    .summary-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 14px 10px;
+    }
+
+    .summary-card h4 {
         font-size: 0.8rem;
     }
-    
-    .data-table th, .data-table td {
-        padding: 8px 4px;
+
+    .summary-card span {
+        font-size: 1.2rem;
+    }
+
+    /* 액션 버튼 */
+    .action-btn {
+        padding: 7px 12px;
+        font-size: 0.85rem;
+        border-radius: 6px;
     }
 }
 
