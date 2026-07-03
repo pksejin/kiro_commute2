@@ -134,13 +134,31 @@ class AttendanceManager {
             this.hideAddCompanyForm();
         });
 
-        // 위치 정보 관련 이벤트
+        // 수정 폼 버튼
+        document.getElementById('updateCompanyBtn').addEventListener('click', () => {
+            if (this._editingCompanyId) this.updateCompany(this._editingCompanyId);
+        });
+
+        document.getElementById('cancelEditCompanyBtn').addEventListener('click', () => {
+            this.hideEditCompanyForm();
+        });
+
+        // 위치 정보 관련 이벤트 (추가 폼)
         document.getElementById('getLocationBtn').addEventListener('click', () => {
-            this.getCurrentOfficeLocation();
+            this.getCurrentOfficeLocation('add');
         });
 
         document.getElementById('geocodeBtn').addEventListener('click', () => {
-            this.geocodeOfficeAddress();
+            this.geocodeOfficeAddress('add');
+        });
+
+        // 위치 정보 관련 이벤트 (수정 폼)
+        document.getElementById('editGetLocationBtn').addEventListener('click', () => {
+            this.getCurrentOfficeLocation('edit');
+        });
+
+        document.getElementById('editGeocodeBtn').addEventListener('click', () => {
+            this.geocodeOfficeAddress('edit');
         });
 
         // 사용자 관리
@@ -235,6 +253,8 @@ class AttendanceManager {
     }
 
     showAddCompanyForm() {
+        // 수정 폼은 닫기
+        document.getElementById('editCompanyForm').style.display = 'none';
         document.getElementById('addCompanyForm').style.display = 'block';
         document.getElementById('companyName').focus();
     }
@@ -242,6 +262,21 @@ class AttendanceManager {
     hideAddCompanyForm() {
         document.getElementById('addCompanyForm').style.display = 'none';
         this.clearCompanyForm();
+    }
+
+    showEditCompanyForm(id) {
+        // 추가 폼은 닫기
+        document.getElementById('addCompanyForm').style.display = 'none';
+        this._editingCompanyId = id;
+        document.getElementById('editCompanyForm').style.display = 'block';
+        // 수정 폼으로 스크롤
+        document.getElementById('editCompanyForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    hideEditCompanyForm() {
+        document.getElementById('editCompanyForm').style.display = 'none';
+        this._editingCompanyId = null;
+        this.clearEditCompanyForm();
     }
 
     clearCompanyForm() {
@@ -252,6 +287,17 @@ class AttendanceManager {
         document.getElementById('companyAddress').value = '';
         document.getElementById('companyLatitude').value = '';
         document.getElementById('companyLongitude').value = '';
+    }
+
+    clearEditCompanyForm() {
+        document.getElementById('editCompanyName').value = '';
+        document.getElementById('editCompanyCode').value = '';
+        document.getElementById('editCompanyContact').value = '';
+        document.getElementById('editCompanyEmail').value = '';
+        document.getElementById('editCompanyAddress').value = '';
+        document.getElementById('editCompanyLatitude').value = '';
+        document.getElementById('editCompanyLongitude').value = '';
+        document.getElementById('editCompanyFormTitle').textContent = '협력사 수정';
     }
 
     saveCompany() {
@@ -341,32 +387,32 @@ class AttendanceManager {
         const company = this.companies.find(c => c.id === id);
         if (!company) return;
 
-        document.getElementById('companyName').value = company.name;
-        document.getElementById('companyCode').value = company.code;
-        document.getElementById('companyContact').value = company.contact || '';
-        document.getElementById('companyEmail').value = company.email || '';
-        document.getElementById('companyAddress').value = company.address || '';
-        document.getElementById('companyLatitude').value = company.latitude || '';
-        document.getElementById('companyLongitude').value = company.longitude || '';
-        
-        this.showAddCompanyForm();
-        
-        // 임시로 편집 모드 표시
-        document.getElementById('saveCompanyBtn').textContent = '수정';
-        document.getElementById('saveCompanyBtn').onclick = () => this.updateCompany(id);
+        // 수정 폼에 데이터 채우기
+        document.getElementById('editCompanyName').value = company.name;
+        document.getElementById('editCompanyCode').value = company.code;
+        document.getElementById('editCompanyContact').value = company.contact || '';
+        document.getElementById('editCompanyEmail').value = company.email || '';
+        document.getElementById('editCompanyAddress').value = company.address || '';
+        document.getElementById('editCompanyLatitude').value = company.latitude || '';
+        document.getElementById('editCompanyLongitude').value = company.longitude || '';
+
+        // 제목에 협력사명 표시
+        document.getElementById('editCompanyFormTitle').textContent = `"${company.name}" 수정`;
+
+        this.showEditCompanyForm(id);
     }
 
     updateCompany(id) {
         const company = this.companies.find(c => c.id === id);
         if (!company) return;
 
-        const name = document.getElementById('companyName').value.trim();
-        const code = document.getElementById('companyCode').value.trim();
-        const contact = document.getElementById('companyContact').value.trim();
-        const email = document.getElementById('companyEmail').value.trim();
-        const address = document.getElementById('companyAddress').value.trim();
-        const latitude = parseFloat(document.getElementById('companyLatitude').value) || null;
-        const longitude = parseFloat(document.getElementById('companyLongitude').value) || null;
+        const name = document.getElementById('editCompanyName').value.trim();
+        const code = document.getElementById('editCompanyCode').value.trim();
+        const contact = document.getElementById('editCompanyContact').value.trim();
+        const email = document.getElementById('editCompanyEmail').value.trim();
+        const address = document.getElementById('editCompanyAddress').value.trim();
+        const latitude = parseFloat(document.getElementById('editCompanyLatitude').value) || null;
+        const longitude = parseFloat(document.getElementById('editCompanyLongitude').value) || null;
 
         if (!name || !code) {
             alert('협력사명과 협력사 코드는 필수입니다.');
@@ -374,14 +420,7 @@ class AttendanceManager {
         }
 
         // 중복 체크 (자기 자신 제외)
-        const duplicateCheck = this.companies.filter(c => c.code === code && c.id !== id);
-        console.log('=== 중복 체크 디버그 ===');
-        console.log('수정하려는 ID:', id);
-        console.log('입력한 코드:', code);
-        console.log('중복된 항목:', duplicateCheck);
-        console.log('전체 협력사:', this.companies.map(c => ({id: c.id, code: c.code})));
-        
-        if (duplicateCheck.length > 0) {
+        if (this.companies.some(c => c.code === code && c.id !== id)) {
             alert('이미 존재하는 협력사 코드입니다.');
             return;
         }
@@ -412,16 +451,12 @@ class AttendanceManager {
         company.longitude = longitude;
 
         localStorage.setItem('companies', JSON.stringify(this.companies));
-        
+
         alert('✅ 수정이 완료되었습니다.');
-        
-        this.hideAddCompanyForm();
+
+        this.hideEditCompanyForm();
         this.loadCompanyTable();
         this.updateCompanySelectors();
-        
-        // 버튼 원래대로 복원
-        document.getElementById('saveCompanyBtn').textContent = '저장';
-        document.getElementById('saveCompanyBtn').onclick = () => this.saveCompany();
     }
 
     deleteCompany(id) {
@@ -1111,19 +1146,25 @@ class AttendanceManager {
     }
 
     // GPS 위치 관련 메서드
-    async getCurrentOfficeLocation() {
+    async getCurrentOfficeLocation(formType = 'add') {
+        const latId = formType === 'edit' ? 'editCompanyLatitude' : 'companyLatitude';
+        const lngId = formType === 'edit' ? 'editCompanyLongitude' : 'companyLongitude';
         try {
             const position = await this.locationService.getCurrentPosition();
-            document.getElementById('companyLatitude').value = position.latitude.toFixed(6);
-            document.getElementById('companyLongitude').value = position.longitude.toFixed(6);
+            document.getElementById(latId).value = position.latitude.toFixed(6);
+            document.getElementById(lngId).value = position.longitude.toFixed(6);
             alert(`✅ 현재 위치를 가져왔습니다!\n위도: ${position.latitude.toFixed(6)}\n경도: ${position.longitude.toFixed(6)}`);
         } catch (error) {
             alert(`❌ ${error.message}`);
         }
     }
 
-    async geocodeOfficeAddress() {
-        const address = document.getElementById('companyAddress').value.trim();
+    async geocodeOfficeAddress(formType = 'add') {
+        const addrId = formType === 'edit' ? 'editCompanyAddress' : 'companyAddress';
+        const latId  = formType === 'edit' ? 'editCompanyLatitude' : 'companyLatitude';
+        const lngId  = formType === 'edit' ? 'editCompanyLongitude' : 'companyLongitude';
+
+        const address = document.getElementById(addrId).value.trim();
         
         if (!address) {
             alert('주소를 먼저 입력해주세요.');
@@ -1134,8 +1175,8 @@ class AttendanceManager {
             const result = await this.locationService.geocodeAddress(address);
             
             if (result.success) {
-                document.getElementById('companyLatitude').value = result.latitude.toFixed(6);
-                document.getElementById('companyLongitude').value = result.longitude.toFixed(6);
+                document.getElementById(latId).value = result.latitude.toFixed(6);
+                document.getElementById(lngId).value = result.longitude.toFixed(6);
                 alert(`✅ 주소를 좌표로 변환했습니다!\n${result.displayName}\n\n위도: ${result.latitude.toFixed(6)}\n경도: ${result.longitude.toFixed(6)}`);
             } else {
                 alert(`❌ ${result.error}`);
