@@ -216,7 +216,6 @@
                 <div id="userManagement" class="admin-section" style="display: none;">
                     <div class="section-header">
                         <h2>사용자 관리</h2>
-                        <button id="addUserBtn" class="btn btn-primary">사용자 추가</button>
                     </div>
 
                     <div class="filter-section">
@@ -225,21 +224,47 @@
                         </select>
                     </div>
 
-                    <div id="addUserForm" class="form-section" style="display: none;">
-                        <h3>사용자 등록</h3>
+                    <!-- 사용자 신규 추가 폼 -->
+                    <div id="addUserForm" class="form-section form-section-add">
+                        <div class="form-section-title">
+                            <span class="form-badge form-badge-add">신규 등록</span>
+                            <h3>사용자 등록</h3>
+                        </div>
                         <div class="form-grid">
                             <select id="userCompany" required>
-                                <option value="">협력사 선택</option>
+                                <option value="">협력사 선택 *</option>
                             </select>
-                            <input type="text" id="userName" placeholder="사용자명" required>
+                            <input type="text" id="userName" placeholder="사용자명 *" required>
                             <input type="text" id="userEmployeeId" placeholder="사번">
                             <input type="text" id="userPosition" placeholder="직급">
                             <input type="text" id="userPhone" placeholder="연락처">
                             <input type="email" id="userEmail" placeholder="이메일">
                         </div>
                         <div class="form-actions">
-                            <button id="saveUserBtn" class="btn btn-primary">저장</button>
-                            <button id="cancelUserBtn" class="btn btn-secondary">취소</button>
+                            <button id="saveUserBtn" class="btn btn-primary">💾 저장</button>
+                            <button id="cancelUserBtn" class="btn btn-secondary">🔄 초기화</button>
+                        </div>
+                    </div>
+
+                    <!-- 사용자 수정 폼 -->
+                    <div id="editUserForm" class="form-section form-section-edit" style="display: none;">
+                        <div class="form-section-title">
+                            <span class="form-badge form-badge-edit">수정 중</span>
+                            <h3 id="editUserFormTitle">사용자 수정</h3>
+                        </div>
+                        <div class="form-grid">
+                            <select id="editUserCompany" required>
+                                <option value="">협력사 선택 *</option>
+                            </select>
+                            <input type="text" id="editUserName" placeholder="사용자명 *" required>
+                            <input type="text" id="editUserEmployeeId" placeholder="사번">
+                            <input type="text" id="editUserPosition" placeholder="직급">
+                            <input type="text" id="editUserPhone" placeholder="연락처">
+                            <input type="email" id="editUserEmail" placeholder="이메일">
+                        </div>
+                        <div class="form-actions">
+                            <button id="updateUserBtn" class="btn btn-warning">✏️ 수정 완료</button>
+                            <button id="cancelEditUserBtn" class="btn btn-secondary">취소</button>
                         </div>
                     </div>
 
