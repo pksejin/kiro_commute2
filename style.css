@@ -711,43 +711,45 @@ main {
 
     /* 타이머 */
     #timer {
-        font-size: 3.5rem;
+        font-size: 2.8rem;
     }
 
     .timer-display {
-        margin: 10px 0 15px 0;
+        margin: 8px 0 12px 0;
     }
 
     .timer-controls {
         display: flex;
         flex-direction: row;
         gap: 8px;
-        margin-bottom: 18px;
+        margin-bottom: 14px;
     }
 
     .timer-controls .btn {
         flex: 1;
-        padding: 13px 10px;
-        font-size: 0.95rem;
+        padding: 12px 8px;
+        font-size: 0.9rem;
         white-space: nowrap;
     }
 
-    /* 빠른 설정 버튼 - 가로 정렬 */
+    /* 빠른 설정 버튼 - 4개 한 줄 */
     .preset-times {
-        margin-top: 10px;
+        margin-top: 8px;
         text-align: center;
     }
 
     .preset-times h3 {
-        font-size: 0.95rem;
-        margin-bottom: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
     }
 
     .preset-btn {
-        padding: 11px 18px;
-        font-size: 0.95rem;
-        margin: 4px;
+        padding: 8px 12px;
+        font-size: 0.82rem;
+        margin: 3px;
+        border-radius: 12px;
         display: inline-block;
+        min-width: 56px;
     }
 
     /* 오늘의 기록 */
